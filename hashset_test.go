@@ -7,23 +7,23 @@ import (
 )
 
 func TestInstantiationWithElements(t *testing.T) {
-	set := New(1, 2, 3, 4, 5)
+	set := New(5, 1, 2, 3, 4, 5)
 	assert.Equal(t, set.Len(), 5)
 }
 
 func TestWithNoElements(t *testing.T) {
-	set := New[string]()
+	set := New[string](0)
 	assert.Zero(t, set.Len())
 }
 
 func TestClearingMapIsCorrect(t *testing.T) {
-	set := New("foo", "bar", "baz")
+	set := New(3, "foo", "bar", "baz")
 	set.Clear()
 	assert.Zero(t, set.Len())
 }
 
 func TestRemoveAllElements(t *testing.T) {
-	set := New("foo", "bar", "baz")
+	set := New(3, "foo", "bar", "baz")
 	set.Remove("foo")
 	assert.Equal(t, set.Len(), 2)
 	assert.False(t, set.Contains("foo"))
@@ -32,13 +32,13 @@ func TestRemoveAllElements(t *testing.T) {
 }
 
 func TestRemoveNonExistingIsNoOp(t *testing.T) {
-	set := New[string]()
+	set := New[string](0)
 	set.Remove("notinset")
 	assert.Zero(t, set.Len())
 }
 
 func TestIsANewCopy(t *testing.T) {
-	original := New(1, 2, 3, 4)
+	original := New(4, 1, 2, 3, 4)
 	cp := original.Copy()
 	original.Remove(4)
 	assert.True(t, cp.Contains(1))
@@ -50,7 +50,7 @@ func TestIsANewCopy(t *testing.T) {
 }
 
 func TestPopRemovesARandomElement(t *testing.T) {
-	set := New(1, 2, 3)
+	set := New(3, 1, 2, 3)
 	// flush out the entire set
 	for i := 0; i < 3; i++ {
 		element, err := set.Pop()
@@ -65,12 +65,12 @@ func TestPopRemovesARandomElement(t *testing.T) {
 }
 
 func TestIsNotDisjoint(t *testing.T) {
-	a := New(1, 2, 3, 4, 5)
-	b := New(5, 4, 3, 2, 1)
+	a := New(5, 1, 2, 3, 4, 5)
+	b := New(5, 5, 4, 3, 2, 1)
 	isDisjoint := a.IsDisjoint(b)
 	assert.False(t, isDisjoint)
 }
 
 func TestIsDisjoint(t *testing.T) {
-	assert.True(t, New(1, 2, 3).IsDisjoint(New(4, 5, 6)))
+	assert.True(t, New(3, 1, 2, 3).IsDisjoint(New(4, 5, 6)))
 }
