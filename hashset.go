@@ -17,6 +17,9 @@ Update()
 
 type nothing struct{}
 
+var sentinelNothing = nothing{}
+
+// ErrPopFromEmptySet is returned when calling Pop() on an empty set
 var ErrPopFromEmptySet = errors.New("pop from an empty set")
 
 // Set is a generic implementation of a Hashset.
@@ -39,7 +42,7 @@ func New[T comparable](size int, elements ...T) *Set[T] {
 // Add adds the specified element into this set.
 // Add has no effect if the element is already present.
 func (s *Set[T]) Add(element T) {
-	s.elements[element] = nothing{}
+	s.elements[element] = sentinelNothing
 }
 
 // Remove deletes the element from this set.
@@ -57,6 +60,11 @@ func (s *Set[T]) Clear() {
 // Len returns the number of elements in this hashset.
 func (s *Set[T]) Len() int {
 	return len(s.elements)
+}
+
+// IsEmpty returns true if this set contains no elements.
+func (s *Set[T]) IsEmpty() bool {
+	return s.Len() == 0
 }
 
 // Contains returns true if the element is in this set.

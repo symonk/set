@@ -14,10 +14,12 @@ func TestInstantiationWithElements(t *testing.T) {
 func TestWithNoElements(t *testing.T) {
 	set := New[string](0)
 	assert.Zero(t, set.Len())
+	assert.True(t, set.IsEmpty())
 }
 
 func TestClearingMapIsCorrect(t *testing.T) {
 	set := New(3, "foo", "bar", "baz")
+	assert.False(t, set.IsEmpty())
 	set.Clear()
 	assert.Zero(t, set.Len())
 }
