@@ -15,3 +15,9 @@ func TestWithNoElements(t *testing.T) {
 	set := New[string]()
 	assert.Zero(t, set.Len())
 }
+
+func TestClearingMapIsCorrect(t *testing.T) {
+	set := New("foo", "bar", "baz")
+	set.Clear()
+	assert.Zero(t, set.Len())
+}
