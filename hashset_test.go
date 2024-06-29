@@ -36,3 +36,15 @@ func TestRemoveNonExistingIsNoOp(t *testing.T) {
 	set.Remove("notinset")
 	assert.Zero(t, set.Len())
 }
+
+func TestIsANewCopy(t *testing.T) {
+	original := New(1, 2, 3, 4)
+	cp := original.Copy()
+	original.Remove(4)
+	assert.True(t, cp.Contains(1))
+	assert.True(t, cp.Contains(2))
+	assert.True(t, cp.Contains(3))
+	assert.True(t, cp.Contains(4))
+
+	assert.False(t, original.Contains(4))
+}

@@ -1,19 +1,14 @@
 package set
 
 /*
-	Add()
-	Clear()
-	Copy()
 	Difference()
 	DifferenceUpdate()
-	Discard()
 	Intersection()
 	IntersectionUpdate()
 	IsDisjoint()
 	IsSubset()
 	IsSuperset()
 	Pop()
-	Remove()
 	SymmetricDifference()
 	SymmetricDifferenceUpdate()
 	Union()
@@ -64,4 +59,15 @@ func (s *Set[T]) Len() int {
 func (s *Set[T]) Contains(element T) bool {
 	_, ok := s.store[element]
 	return ok
+}
+
+// Copy returns a copy of this set
+func (s *Set[T]) Copy() *Set[T] {
+	newCopy := make(map[T]struct{}, len(s.store))
+	for k, v := range s.store {
+		newCopy[k] = v
+	}
+	return &Set[T]{
+		store: newCopy,
+	}
 }
