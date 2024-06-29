@@ -7,5 +7,9 @@ import (
 )
 
 func TestVersionIsCorrect(t *testing.T) {
-	assert.Equal(t, Version, "v0.0.1")
+	assert.Equal(t, version, "v0.0.1")
+}
+
+func TestNameIsCorrect(t *testing.T) {
+	assert.Equal(t, name, "set")
 }
