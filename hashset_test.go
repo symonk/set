@@ -48,3 +48,18 @@ func TestIsANewCopy(t *testing.T) {
 
 	assert.False(t, original.Contains(4))
 }
+
+func TestPopRemovesARandomElement(t *testing.T) {
+	set := New(1, 2, 3)
+	// flush out the entire set
+	for i := 0; i < 3; i++ {
+		element, err := set.Pop()
+		assert.NotZero(t, element)
+		assert.Nil(t, err)
+	}
+
+	falsy, err := set.Pop()
+	assert.Zero(t, falsy)
+	assert.ErrorIs(t, err, KeyError)
+	assert.ErrorContains(t, err, "pop from an empty set")
+}

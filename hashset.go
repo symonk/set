@@ -1,5 +1,7 @@
 package set
 
+import "errors"
+
 /*
 	Difference()
 	DifferenceUpdate()
@@ -14,6 +16,8 @@ package set
 	Union()
 	Update()
 */
+
+var KeyError = errors.New("pop from an empty set")
 
 // Set is a generic implementation of a Hashset.
 type Set[T comparable] struct {
@@ -70,4 +74,15 @@ func (s *Set[T]) Copy() *Set[T] {
 	return &Set[T]{
 		store: newCopy,
 	}
+}
+
+// Pop returns an arbitrary element from this set
+// if this set is empty, an error is returned
+func (s *Set[T]) Pop() (T, error) {
+	for element := range s.store {
+		s.Remove(element)
+		return element, nil
+	}
+	var falsy T
+	return falsy, KeyError
 }
