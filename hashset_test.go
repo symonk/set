@@ -60,6 +60,6 @@ func TestPopRemovesARandomElement(t *testing.T) {
 
 	falsy, err := set.Pop()
 	assert.Zero(t, falsy)
-	assert.ErrorIs(t, err, KeyError)
+	assert.ErrorIs(t, err, ErrPopFromEmptySet)
 	assert.ErrorContains(t, err, "pop from an empty set")
 }

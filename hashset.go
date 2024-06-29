@@ -17,7 +17,7 @@ import "errors"
 	Update()
 */
 
-var KeyError = errors.New("pop from an empty set")
+var ErrPopFromEmptySet = errors.New("pop from an empty set")
 
 // Set is a generic implementation of a Hashset.
 type Set[T comparable] struct {
@@ -84,5 +84,5 @@ func (s *Set[T]) Pop() (T, error) {
 		return element, nil
 	}
 	var falsy T
-	return falsy, KeyError
+	return falsy, ErrPopFromEmptySet
 }
