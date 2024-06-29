@@ -86,3 +86,14 @@ func (s *Set[T]) Pop() (T, error) {
 	var falsy T
 	return falsy, ErrPopFromEmptySet
 }
+
+// IsDisjoint returns true if this set and other
+// have a null intersection.
+func (s *Set[T]) IsDisjoint(other *Set[T]) bool {
+	for element := range other.store {
+		if s.Contains(element) {
+			return false
+		}
+	}
+	return true
+}

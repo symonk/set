@@ -63,3 +63,14 @@ func TestPopRemovesARandomElement(t *testing.T) {
 	assert.ErrorIs(t, err, ErrPopFromEmptySet)
 	assert.ErrorContains(t, err, "pop from an empty set")
 }
+
+func TestIsNotDisjoint(t *testing.T) {
+	a := New(1, 2, 3, 4, 5)
+	b := New(5, 4, 3, 2, 1)
+	isDisjoint := a.IsDisjoint(b)
+	assert.False(t, isDisjoint)
+}
+
+func TestIsDisjoint(t *testing.T) {
+	assert.True(t, New(1, 2, 3).IsDisjoint(New(4, 5, 6)))
+}
