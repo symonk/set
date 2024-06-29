@@ -1,5 +1,25 @@
 package set
 
+/*
+	Add()
+	Clear()
+	Copy()
+	Difference()
+	DifferenceUpdate()
+	Discard()
+	Intersection()
+	IntersectionUpdate()
+	IsDisjoint()
+	IsSubset()
+	IsSuperset()
+	Pop()
+	Remove()
+	SymmetricDifference()
+	SymmetricDifferenceUpdate()
+	Union()
+	Update()
+*/
+
 // Set is a generic implementation of a Hashset.
 type Set[T comparable] struct {
 	store map[T]struct{}
