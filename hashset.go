@@ -24,7 +24,8 @@ func (s *Set[T]) Add(element T) {
 }
 
 // Remove deletes the element from this set.
-// if
+// if the element is not in the set it is
+// a no op
 func (s *Set[T]) Remove(element T) {
 	delete(s.store, element)
 }
