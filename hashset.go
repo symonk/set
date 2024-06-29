@@ -38,3 +38,9 @@ func (s *Set[T]) Clear() {
 func (s *Set[T]) Len() int {
 	return len(s.store)
 }
+
+// Contains returns true if the element is in this set.
+func (s *Set[T]) Contains(element T) bool {
+	_, ok := s.store[element]
+	return ok
+}
