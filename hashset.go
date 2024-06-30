@@ -7,7 +7,6 @@ Difference()
 DifferenceUpdate()
 Intersection()
 IntersectionUpdate()
-IsSuperset()
 SymmetricDifference()
 SymmetricDifferenceUpdate()
 Union()
@@ -107,6 +106,7 @@ func (s *Set[T]) IsDisjoint(other *Set[T]) bool {
 
 // IsSubset tests whether every element in this set
 // is contained in the other set.
+// empty sets are considered subsets of each other.
 func (s *Set[T]) IsSubset(other *Set[T]) bool {
 	if other.Len() < s.Len() {
 		return false
@@ -119,4 +119,11 @@ func (s *Set[T]) IsSubset(other *Set[T]) bool {
 	}
 	return true
 
+}
+
+// IsSuperset tests whether every element in other is
+// contained within this set.
+// empty sets are considered supersets of each other.
+func (s *Set[T]) IsSuperSet(other *Set[T]) bool {
+	return other.IsSubset(s)
 }

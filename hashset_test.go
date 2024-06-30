@@ -94,3 +94,24 @@ func TestIsSubsetNo(t *testing.T) {
 func TestEmptySetSubset(t *testing.T) {
 	assert.True(t, New[int](0).IsSubset(New[int](0)))
 }
+
+func TestIsSuperSetYes(t *testing.T) {
+	a := New(3, 1, 2, 3)
+	b := New(3, 3, 2, 1)
+	assert.True(t, a.IsSuperSet(b))
+	assert.True(t, b.IsSuperSet(a))
+
+	c := New(3, 1, 2, 3, 4, 5)
+	d := New(3, 2, 3, 4)
+	assert.True(t, c.IsSuperSet(d))
+}
+
+func TestIsSuperSetNo(t *testing.T) {
+	a := New(3, 1, 2, 3)
+	b := New(3, 2, 3)
+	assert.False(t, b.IsSuperSet(a))
+}
+
+func TestEmptySetSuperset(t *testing.T) {
+	assert.True(t, New[string](0).IsSuperSet(New[string](0)))
+}
