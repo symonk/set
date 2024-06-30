@@ -141,23 +141,32 @@ func (s *Set[T]) Equals(other *Set[T]) bool {
 
 // Union returns a new set containing all of the elements
 // that appear in all of the sets.
+// empty sets are not included in the union.
 func (s *Set[T]) Union(others ...*Set[T]) *Set[T] {
 	result := New[T](0)
 	counter := make(map[T]int)
-	all := len(others) + 1
+
+	var target int
+	if s.Len() != 0 {
+		target = 1
+	} else {
+		target = 0
+	}
 
 	for element := range s.elements {
 		counter[element] += 1
-		if counter[element] == all {
-			result.Add(element)
-		}
 	}
 	for _, set := range others {
+		if set.Len() != 0 {
+			target++
+		}
 		for element := range set.elements {
 			counter[element] += 1
-			if counter[element] == all {
-				result.Add(element)
-			}
+		}
+	}
+	for element, count := range counter {
+		if count == target {
+			result.Add(element)
 		}
 	}
 

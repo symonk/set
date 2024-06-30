@@ -144,3 +144,9 @@ func TestUnionMergesSuccessfully(t *testing.T) {
 	expected := New(3, 1, 2, 3)
 	assert.True(t, union.Equals(expected))
 }
+
+func TestUnionEmpty(t *testing.T) {
+	a := New(3, 1, 2, 3)
+	b := a.Union(New[int](0))
+	assert.True(t, b.Equals(a))
+}
