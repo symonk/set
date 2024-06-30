@@ -7,7 +7,6 @@ Difference()
 DifferenceUpdate()
 Intersection()
 IntersectionUpdate()
-IsSubset()
 IsSuperset()
 SymmetricDifference()
 SymmetricDifferenceUpdate()
@@ -28,9 +27,9 @@ type Set[T comparable] struct {
 }
 
 // New returns a new generic hashset of type T.
-func New[T comparable](size int, elements ...T) *Set[T] {
+func New[T comparable](capacity int, elements ...T) *Set[T] {
 	s := &Set[T]{
-		elements: make(map[T]nothing, size),
+		elements: make(map[T]nothing, capacity),
 	}
 	for _, element := range elements {
 		s.Add(element)
@@ -104,4 +103,20 @@ func (s *Set[T]) IsDisjoint(other *Set[T]) bool {
 		}
 	}
 	return true
+}
+
+// IsSubset tests whether every element in this set
+// is contained in the other set.
+func (s *Set[T]) IsSubset(other *Set[T]) bool {
+	if other.Len() < s.Len() {
+		return false
+	}
+
+	for element := range s.elements {
+		if !other.Contains(element) {
+			return false
+		}
+	}
+	return true
+
 }

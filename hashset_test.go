@@ -76,3 +76,21 @@ func TestIsNotDisjoint(t *testing.T) {
 func TestIsDisjoint(t *testing.T) {
 	assert.True(t, New(3, 1, 2, 3).IsDisjoint(New(4, 5, 6)))
 }
+
+func TestIsSubsetYes(t *testing.T) {
+	a := New(3, 1, 2, 3)
+	b := New(3, 2, 3, 4)
+	assert.False(t, a.IsSubset(b))
+	assert.False(t, b.IsSubset(a))
+}
+
+func TestIsSubsetNo(t *testing.T) {
+	a := New(5, 1, 2, 3, 4, 5)
+	b := New(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+	assert.True(t, a.IsSubset(b))
+	assert.False(t, b.IsSubset(a))
+}
+
+func TestEmptySetSubset(t *testing.T) {
+	assert.True(t, New[int](0).IsSubset(New[int](0)))
+}
