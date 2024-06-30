@@ -139,36 +139,15 @@ func (s *Set[T]) Equals(other *Set[T]) bool {
 	return reflect.DeepEqual(s.elements, other.elements)
 }
 
-// Union returns a new set containing all of the elements
-// that appear in all of the sets.
-// empty sets are not included in the union.
+// Union returns a new set that contains any of the
+// elements from any of the sets.
 func (s *Set[T]) Union(others ...*Set[T]) *Set[T] {
-	result := New[T](0)
-	counter := make(map[T]int)
-
-	var target int
-	if s.Len() != 0 {
-		target = 1
-	} else {
-		target = 0
-	}
-
-	for element := range s.elements {
-		counter[element] += 1
-	}
+	// Todo: not optimised, potential for unnecessary allocs due to capacity
+	result := s.Copy()
 	for _, set := range others {
-		if set.Len() != 0 {
-			target++
-		}
 		for element := range set.elements {
-			counter[element] += 1
-		}
-	}
-	for element, count := range counter {
-		if count == target {
 			result.Add(element)
 		}
 	}
-
 	return result
 }
