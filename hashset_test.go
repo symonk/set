@@ -6,6 +6,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestElementsAreDistinct(t *testing.T) {
+	a := New(5, 1, 2, 3, 4, 5)
+	a.Add(2)
+	a.Add(3)
+	a.Add(3)
+	assert.True(t, a.Len() == 5)
+
+	for i := 0; i < a.Len(); i++ {
+		random, _ := a.Pop()
+		assert.True(t, !a.Contains(random))
+	}
+}
+
 func TestInstantiationWithElements(t *testing.T) {
 	set := New(5, 1, 2, 3, 4, 5)
 	assert.Equal(t, set.Len(), 5)
