@@ -151,3 +151,13 @@ func (s *Set[T]) Union(others ...*Set[T]) *Set[T] {
 	}
 	return result
 }
+
+// Update updates this set with the union of itself and others
+// in place.
+func (s *Set[T]) Update(others ...*Set[T]) {
+	for _, set := range others {
+		for element := range set.elements {
+			s.Add(element)
+		}
+	}
+}
