@@ -1,6 +1,9 @@
 package set
 
-import "errors"
+import (
+	"errors"
+	"reflect"
+)
 
 /*
 Difference()
@@ -9,7 +12,6 @@ Intersection()
 IntersectionUpdate()
 SymmetricDifference()
 SymmetricDifferenceUpdate()
-Union()
 Update()
 */
 
@@ -126,4 +128,38 @@ func (s *Set[T]) IsSubset(other *Set[T]) bool {
 // empty sets are considered supersets of each other.
 func (s *Set[T]) IsSuperSet(other *Set[T]) bool {
 	return other.IsSubset(s)
+}
+
+// Equals returns true if both sets have the exact same
+// elements
+func (s *Set[T]) Equals(other *Set[T]) bool {
+	if s.Len() != other.Len() {
+		return false
+	}
+	return reflect.DeepEqual(s.elements, other.elements)
+}
+
+// Union returns a new set containing all of the elements
+// that appear in all of the sets.
+func (s *Set[T]) Union(others ...*Set[T]) *Set[T] {
+	result := New[T](0)
+	counter := make(map[T]int)
+	all := len(others) + 1
+
+	for element := range s.elements {
+		counter[element] += 1
+		if counter[element] == all {
+			result.Add(element)
+		}
+	}
+	for _, set := range others {
+		for element := range set.elements {
+			counter[element] += 1
+			if counter[element] == all {
+				result.Add(element)
+			}
+		}
+	}
+
+	return result
 }

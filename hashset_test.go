@@ -128,3 +128,19 @@ func TestIsSuperSetNo(t *testing.T) {
 func TestEmptySetSuperset(t *testing.T) {
 	assert.True(t, New[string](0).IsSuperSet(New[string](0)))
 }
+
+func TestUnionEmptySet(t *testing.T) {
+	a := New[int](0)
+	b := New[int](0)
+	c := New[int](0)
+	assert.True(t, a.Union(b).Equals(c))
+}
+
+func TestUnionMergesSuccessfully(t *testing.T) {
+	a := New(5, 1, 2, 3, 4, 5)
+	b := New(3, 1, 2, 3)
+	c := New(8, 1, 2, 3, 4, 5, 6, 7, 8)
+	union := a.Union(b, c)
+	expected := New(3, 1, 2, 3)
+	assert.True(t, union.Equals(expected))
+}
