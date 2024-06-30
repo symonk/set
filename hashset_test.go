@@ -141,7 +141,7 @@ func TestUnionMergesSuccessfully(t *testing.T) {
 	b := New(3, 1, 2, 3)
 	c := New(8, 1, 2, 3, 4, 5, 6, 7, 8)
 	union := a.Union(b, c)
-	expected := New(3, 1, 2, 3)
+	expected := New(3, 1, 2, 3, 4, 5, 6, 7, 8)
 	assert.True(t, union.Equals(expected))
 }
 
